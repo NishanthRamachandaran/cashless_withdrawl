@@ -14,20 +14,17 @@ import '../pages/withdrawal_amount_page.dart';
 import '../pages/withdrawal_history_page.dart';
 
 class CardlessContent extends StatelessWidget {
-  final double width;
-  final double height;
-
-  const CardlessContent({
-    super.key,
-    required this.width,
-    required this.height,
-  });
+  const CardlessContent({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final w = size.width;
+    final h = size.height;
+
     return Container(
-      width: width,
-      padding: EdgeInsets.symmetric(horizontal: width * 0.06),
+      width: w,
+      padding: EdgeInsets.symmetric(horizontal: w * 0.06),
       decoration: const BoxDecoration(
         color: DefaultColors.white,
         borderRadius: BorderRadius.only(
@@ -39,52 +36,50 @@ class CardlessContent extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: height * 0.03),
+            SizedBox(height: h * 0.05),
 
-            CardlessLogo(width: width),
-            SizedBox(height: height * 0.008),
-            CardlessTitle(width: width),
+            CardlessLogo(width: w),
+         //   const SizedBox(height: 0.009),
+            CardlessTitle(width: w),
 
-            SizedBox(height: height * 0.03),  
+            SizedBox(height: h * 0.09),
 
-            CardlessInfoList(width: width, height: height),
+            CardlessInfoList(width: w, height: h),
 
-            SizedBox(height: height * 0.08),
+            SizedBox(height: h * 0.09),
 
-            CardlessInfoBanner(width: width, height: height),
+            CardlessInfoBanner(width: w, height: h),
 
-            SizedBox(height: height * 0.02),
+            SizedBox(height: h * 0.02),
 
-            /// 🔹 Tap to View History
+            /// 🔹 History Navigation
             GestureDetector(
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (_) => const WithdrawalHistoryPage(),
-                  ),
+                  MaterialPageRoute(builder: (_) => const WithdrawalHistoryPage()),
                 );
               },
               child: Text(
                 "Cardless Withdrawal History",
                 style: GoogleFonts.poppins(
-                  fontSize: width * 0.04,
+                  fontSize: w * 0.04,
                   fontWeight: FontWeight.w500,
                   color: DefaultColors.blue9D,
                 ),
               ),
             ),
 
-            SizedBox(height: height * 0.025),
+            SizedBox(height: h * 0.025),
 
             /// 🔹 Main Action Button
             CardlessActionButton(
-              width: width,
-              height: height,
+              width: w,
+              height: h,
               onPressed: () => _showAccountBottomSheet(context),
             ),
 
-            SizedBox(height: height * 0.03),
+            SizedBox(height: h * 0.03),
           ],
         ),
       ),
@@ -99,69 +94,35 @@ class CardlessContent extends StatelessWidget {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
       ),
-      builder: (BuildContext context) {
-        return _AccountSelectionBottomSheet(
-          onAccountSelected: (account) {
-            Navigator.pop(context); 
-            if (account != null) {
-              _navigateToWithdrawalAmount(context, account);
-            }
-          },
-        );
-      },
-    );
-  }
-
-  void _navigateToWithdrawalAmount(
-      BuildContext context, Map<String, String> account) {
-    final providerContainer = ProviderScope.containerOf(context);
-
-    providerContainer.read(cardlessSelectedAccountProvider.notifier).state =
-        account;
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const WithdrawalAmountPage(),
-      ),
+      builder: (context) => const _AccountSelectionBottomSheet(),
     );
   }
 }
 
-class _AccountSelectionBottomSheet extends StatelessWidget {
-  final Function(Map<String, String>) onAccountSelected;
-
-  const _AccountSelectionBottomSheet({required this.onAccountSelected});
+class _AccountSelectionBottomSheet extends ConsumerWidget {
+  const _AccountSelectionBottomSheet({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
-    final w = mediaQuery.size.width;
-    final h = mediaQuery.size.height;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final size = MediaQuery.of(context).size;
+    final w = size.width;
+    final h = size.height;
 
-    final List<Map<String, String>> accounts = [
+    final accounts = [
       {
-        'id': 'savings_2088',
         'title': 'Savings Account',
-        'subtitle': 'xxxx2088',
-        'balance': '889,200.00 QAR',
         'accnumber': 'xxxx2088',
+        'balance': '889,200.00 QAR',
       },
       {
-        'id': 'current_6238',
         'title': 'Current Account',
-        'subtitle': 'xxxx6238',
-        'balance': '7,540.00 QAR',
         'accnumber': 'xxxx6238',
+        'balance': '7,540.00 QAR',
       },
     ];
 
-    return Container(
+    return Padding(
       padding: EdgeInsets.all(w * 0.05),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
-      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -177,25 +138,23 @@ class _AccountSelectionBottomSheet extends StatelessWidget {
 
           Align(
             alignment: Alignment.centerLeft,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Select Account",
-                  style: TextStyle(
-                    fontSize: w * 0.055,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: h * 0.005),
-                Text(
-                  "Choose the account for cardless withdrawal",
-                  style: TextStyle(
-                    fontSize: w * 0.035,
-                    color: Colors.grey[600],
-                  ),
-                ),
-              ],
+            child: Text(
+              "Select Account",
+              style: TextStyle(
+                fontSize: w * 0.055,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          SizedBox(height: h * 0.005),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "Choose the account for cardless withdrawal",
+              style: TextStyle(
+                fontSize: w * 0.035,
+                color: Colors.grey[600],
+              ),
             ),
           ),
 
@@ -209,30 +168,21 @@ class _AccountSelectionBottomSheet extends StatelessWidget {
             itemBuilder: (context, index) {
               final account = accounts[index];
               return ListTile(
-                title: Text(
-                  account['title']!,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: w * 0.040,
-                    color: Colors.black,
-                  ),
-                ),
-                subtitle: Text(
-                  account['subtitle']!,
-                  style: TextStyle(
-                    fontSize: w * 0.034,
-                    color: Colors.grey[600],
-                  ),
-                ),
-                trailing: Text(
-                  account['balance']!,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: w * 0.035,
-                    color: Colors.black,
-                  ),
-                ),
-                onTap: () => onAccountSelected(account),
+                title: Text(account['title']!,
+                    style: TextStyle(fontSize: w * 0.04, fontWeight: FontWeight.w700)),
+                subtitle: Text(account['accnumber']!,
+                    style: TextStyle(fontSize: w * 0.034, color: Colors.grey[600])),
+                trailing: Text(account['balance']!,
+                    style: TextStyle(fontSize: w * 0.036, fontWeight: FontWeight.bold)),
+                onTap: () {
+                  ref.read(cardlessSelectedAccountProvider.notifier).state = account;
+                  Navigator.pop(context);
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const WithdrawalAmountPage()),
+                  );
+                },
               );
             },
           ),
