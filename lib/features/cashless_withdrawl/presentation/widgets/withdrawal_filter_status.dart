@@ -27,23 +27,32 @@ class WithdrawalFilterStatusSection extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
-        SizedBox(height: 8),
+        SizedBox(height: 12),
         Wrap(
-          spacing: w * 0.03,
-          runSpacing: h * 0.01,
+          spacing: w * 0.02,
+          runSpacing: h * 0.012,
           children: statusTypes.map((status) {
             bool selected = selectedStatus == status;
             return ChoiceChip(
               label: Text(
                 status,
                 style: TextStyle(
-                    fontSize: w * 0.034,
-                    color: selected ? Colors.white : DefaultColors.blueA0,
-                    fontWeight: FontWeight.w600),
+                  fontSize: w * 0.034,
+                  color: selected ? DefaultColors.white : DefaultColors.blueA0,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
               selected: selected,
-              selectedColor: DefaultColors.blue9D,
-              backgroundColor: DefaultColors.gray1F,
+              selectedColor: DefaultColors.blue_300,
+              backgroundColor: DefaultColors.dashboardLightBlue,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+                side: BorderSide.none,
+              ),
+              padding: EdgeInsets.symmetric(
+                horizontal: w * 0.04,
+                vertical: h * 0.01,
+              ),
               onSelected: (_) => onStatusChanged(status),
             );
           }).toList(),

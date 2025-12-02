@@ -1,5 +1,5 @@
 // lib/features/cardless_withdrawal/presentation/pages/withdrawal_history_page.dart
-
+//cardless withdrawal history page 1st page
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -57,15 +57,15 @@ class _WithdrawalHistoryPageState
                           decoration: BoxDecoration(
                             color: DefaultColors.gray1F,
                             borderRadius: BorderRadius.circular(30),
-                            border: Border.all(color: DefaultColors.grayE6),
+                            border: Border.all(color: DefaultColors.grayCA),
                           ),
                           child: Row(
                             children: [
-                              SizedBox(width: w * 0.04),
+                              SizedBox(width: w * 0.2),
                               Icon(Icons.search,
-                                  color: DefaultColors.grayA7,
-                                  size: w * 0.055),
-                              SizedBox(width: w * 0.02),
+                                  color: DefaultColors.blueDarkBase,
+                                  size: w * 0.040),
+                              SizedBox(width: w * 0.01),
                               Expanded(
                                 child: TextField(
                                   onChanged: (value) {
@@ -109,11 +109,11 @@ class _WithdrawalHistoryPageState
                           height: h * 0.052,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: DefaultColors.grayE6),
+                            border: Border.all(color: DefaultColors.blueDarkBase),
                           ),
                           child: Icon(Icons.filter_list,
-                              size: w * 0.055,
-                              color: DefaultColors.grayA7),
+                              size: w * 0.045,
+                              color: DefaultColors.blueDarkBase),
                         ),
                       ),
                     ],

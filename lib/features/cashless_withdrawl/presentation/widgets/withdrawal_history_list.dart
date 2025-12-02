@@ -37,7 +37,7 @@ class WithdrawalHistoryList extends ConsumerWidget {
 
             /// Ensures scroll works inside container
             child: SizedBox(
-              height: h * 0.38, // 👈 The MAGIC (fixes full-box display)
+              height: h * 0.38, 
               child: transactions.isEmpty
                   ? Center(
                       child: Padding(

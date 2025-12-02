@@ -42,7 +42,7 @@ class FilterStatusSection extends StatelessWidget {
               label: Text(
                 status,
                 style: TextStyle(
-                    color: active ? Colors.white : Colors.black),
+                    color: active ? Colors.white : Colors.blue),
               ),
               selected: active,
               selectedColor: DefaultColors.blue9D,

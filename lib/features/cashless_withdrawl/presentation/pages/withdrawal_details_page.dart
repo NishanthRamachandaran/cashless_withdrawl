@@ -59,8 +59,8 @@ class WithdrawalDetailsPage extends StatelessWidget {
                     SizedBox(height: h * 0.03),
 
                     /// UI Sections
-                    WithdrawalDetailsStatusSection(transaction: transaction),
-                    SizedBox(height: h * 0.03),
+                   // WithdrawalDetailsStatusSection(transaction: transaction),
+                   // SizedBox(height: h * 0.03),
                     WithdrawalDetailsInfoSection(transaction: transaction),
                   ],
                 ),

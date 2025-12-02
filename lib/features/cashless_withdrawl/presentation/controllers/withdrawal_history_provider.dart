@@ -9,7 +9,7 @@ class WithdrawalTransaction {
   final String reference;
   final String account;
 
-  /// 👇 Added here
+  ///  Added here
   final String? withdrawalCode;
 
   WithdrawalTransaction({
@@ -20,7 +20,7 @@ class WithdrawalTransaction {
     required this.reference,
     required this.account,
 
-    /// 👇 Added here
+    /// Added here
     this.withdrawalCode,
   });
 }
